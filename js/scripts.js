@@ -1,4 +1,4 @@
-// Business Logic for AddressBook ----------------
+// Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = [],
   this.currentId = 0
@@ -15,9 +15,9 @@ AddressBook.prototype.assignId = function() {
 }
 
 AddressBook.prototype.findContact = function(id) {
-  for (var i=0; i <this.contacts.length; i++) {
+  for (var i=0; i< this.contacts.length; i++) {
     if (this.contacts[i]) {
-      if (this.contacts[i].id === id) {
+      if (this.contacts[i].id == id) {
         return this.contacts[i];
       }
     }
@@ -37,17 +37,18 @@ AddressBook.prototype.deleteContact = function(id) {
   return false;
 }
 
-//Business Logic for Contacts ---------------
+// Business Logic for Contacts ---------
 function Contact(firstName, lastName, phoneNumber) {
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.phoneNumber = phoneNumber;
-}
-Contact.prototype.fullName = function() {
-  return this.firstName + " " + this.lastName
+  this.firstName = firstName,
+  this.lastName = lastName,
+  this.phoneNumber = phoneNumber
 }
 
-// User Interface Logic -----------
+Contact.prototype.fullName = function() {
+  return this.firstName + " " + this.lastName;
+}
+
+// User Interface Logic ---------
 var addressBook = new AddressBook();
 
 function displayContactDetails(addressBookToDisplay) {
@@ -65,9 +66,9 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  var button = $("#buttons");
+  var buttons = $("#buttons");
   buttons.empty();
-  buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
+  buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
 }
 
 function attachContactListeners() {
@@ -75,6 +76,7 @@ function attachContactListeners() {
     showContact(this.id);
   });
   $("#buttons").on("click", ".deleteButton", function() {
+    addressBook.deleteContact(this.id);
     $("#show-contact").hide();
     displayContactDetails(addressBook);
   });
